@@ -22,12 +22,19 @@
 - VirtualBox - т.к. у меня винда, версии в выводе нет.
 ![img.png](img.png)
 - Vagrant 
-```bash
+```shell
 $ vagrant -v
 Vagrant 2.2.19
 ```
 - Ansible
-Не могу найти как установить на винде. Задание со звездочкой тоже из-за этого сделать не получается. У меня есть подсистема WSL2, но там вообще вагрант через костыль надо настроить чтобы работал. Может подскажете, как мне работать, чтобы с винды...
+```shell
+ansible 2.9.6
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 3.8.10 (default, Nov 26 2021, 20:14:08) [GCC 9.3.0]
+```   
 
 - *Приложить вывод команд установленных версий каждой из программ, оформленный в markdown.*
 
