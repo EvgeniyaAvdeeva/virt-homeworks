@@ -57,6 +57,20 @@ https://hub.docker.com/repository/docker/eavdeeva/virthomeworks (tag ura)
 * Подключитесь к первому контейнеру с помощью docker exec и создайте текстовый файл любого содержания в /data;
 * Добавьте еще один файл в папку /data на хостовой машине;
 * Подключитесь во второй контейнер и отобразите листинг и содержание файлов в /data контейнера.
+![img_2.png](img_2.png)
+```shell
+vagrant@server1:~/data$ docker exec -it 0e6f910b30bc bash
+[root@0e6f910b30bc data]# touch myfile1
+[root@0e6f910b30bc data]# echo centoscont >  /usr/local/data/myfile1
+[root@0e6f910b30bc data]# exit
+
+vagrant@server1:~/data$ docker exec -it d5bbcf69e255 bash
+root@d5bbcf69e255:/# cd /usr/local/data
+root@d5bbcf69e255:/usr/local/data# ls
+hostfile  myfile1
+root@d5bbcf69e255:/usr/local/data# cat myfile1
+centoscont
+```
 
 
 ## Задача 4 (*)
