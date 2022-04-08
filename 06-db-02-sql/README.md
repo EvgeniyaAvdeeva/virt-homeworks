@@ -19,6 +19,7 @@ vagrant@evgenika:~$ sudo docker run --rm --name vagrant-netology -e POSTGRES_PAS
 d158d0229bd1f533e74df5d30279288f9a45762e2545e3ebe10cae3eaaff144e
 ```
 ![img.png](img.png)
+
 ## Задача 2
 
 В БД из задачи 1: 
