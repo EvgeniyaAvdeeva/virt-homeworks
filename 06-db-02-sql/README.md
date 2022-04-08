@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "6.2. SQL"
+ # Домашнее задание к занятию "6.2. SQL"
 
 ## Введение
 
@@ -11,7 +11,14 @@
 в который будут складываться данные БД и бэкапы.
 
 Приведите получившуюся команду или docker-compose манифест.
-
+```bash
+vagrant@evgenika:~$ docker pull postgres:12
+vagrant@evgenika:~$ docker volume create vol2
+vagrant@evgenika:~$ docker volume create vol1
+vagrant@evgenika:~$ sudo docker run --rm --name vagrant-netology -e POSTGRES_PASSWORD=vagrant -e POSTGRES_USER=vagrant -e POSTGRES_DB=vagrant -d -ti -p 2222:2222 -v vol1:/var/lib/postgresql/data -v vol2:/var/lib/postgresql postgres:12
+d158d0229bd1f533e74df5d30279288f9a45762e2545e3ebe10cae3eaaff144e
+```
+![img.png](img.png)
 ## Задача 2
 
 В БД из задачи 1: 
