@@ -24,11 +24,57 @@ d158d0229bd1f533e74df5d30279288f9a45762e2545e3ebe10cae3eaaff144e
 
 В БД из задачи 1: 
 - создайте пользователя test-admin-user и БД test_db
+```bash
+vagrant=# CREATE DATABASE test_db;
+CREATE DATABASE
+vagrant=# CREATE ROLE "test-admin-user" SUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT LOGIN;
+CREATE ROLE
+```
 - в БД test_db создайте таблицу orders и clients (спeцификация таблиц ниже)
+```bash
+test_db=# CREATE TABLE orders
+(
+id integer,
+name text,
+price integer,
+PRIMARY KEY (id)
+);
+CREATE TABLE
+test_db=# CREATE TABLE clients
+(
+        id integer PRIMARY KEY,
+        lastname text,
+        country text,
+        booking integer,
+        FOREIGN KEY (booking) REFERENCES orders (Id)
+);
+CREATE TABLE
+```
 - предоставьте привилегии на все операции пользователю test-admin-user на таблицы БД test_db
-- создайте пользователя test-simple-user  
+- создайте пользователя test-simple-user
+```shell
+test_db=# CREATE ROLE "test-simple-user" NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT LOGIN;
+CREATE ROLE
+```
 - предоставьте пользователю test-simple-user права на SELECT/INSERT/UPDATE/DELETE данных таблиц БД test_db
-
+```shell
+test_db=# GRANT SELECT ON TABLE public.clients TO "test-simple-user";
+GRANT
+test_db=# GRANT INSERT ON TABLE public.clients TO "test-simple-user";
+GRANT
+test_db=# GRANT UPDATE ON TABLE public.clients TO "test-simple-user";
+GRANT
+test_db=# GRANT DELETE ON TABLE public.clients TO "test-simple-user";
+GRANT
+test_db=# GRANT SELECT ON TABLE public.orders TO "test-simple-user";
+GRANT
+test_db=# GRANT INSERT ON TABLE public.orders TO "test-simple-user";
+GRANT
+test_db=# GRANT UPDATE ON TABLE public.orders TO "test-simple-user";
+GRANT
+test_db=# GRANT DELETE ON TABLE public.orders TO "test-simple-user";
+GRANT
+```
 Таблица orders:
 - id (serial primary key)
 - наименование (string)
@@ -41,13 +87,15 @@ d158d0229bd1f533e74df5d30279288f9a45762e2545e3ebe10cae3eaaff144e
 - заказ (foreign key orders)
 
 Приведите:
-- итоговый список БД после выполнения пунктов выше,
+- итоговый список БД после выполнения пунктов выше
+![img_2.png](img_2.png)
 - описание таблиц (describe)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
+
 - список пользователей с правами над таблицами test_db
 
-# Подскажите, не получается создать бд, в контейнер запущенный вошла, но по факту выглядит как будто команды принимает, но ничего не создает.
-![img_1.png](img_1.png)
 
 ## Задача 3
 
