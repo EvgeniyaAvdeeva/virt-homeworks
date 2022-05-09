@@ -249,8 +249,59 @@ test_db=# select * from orders;
   5 | Гитара  |  4000
 (5 rows)
 ```
-Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
+Приведите список операций, который вы применяли для бэкапа данных и восстановления.
+Удалила и восстановила БД
+```shell
+vagrant=# drop database test_db;
+DROP DATABASE
+vagrant=# create database test_db;
+CREATE DATABASE
+vagrant=# \q
+root@247f0bc6f0b3:/# psql -U vagrant -d test_db -f /var/lib/postgresql/data/dump_test.sql;
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
 
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE TABLE
+ALTER TABLE
+COPY 5
+COPY 5
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+GRANT
+GRANT
+root@247f0bc6f0b3:/#  psql -U vagrant
+psql (12.10 (Debian 12.10-1.pgdg110+1))
+Type "help" for help.
+
+vagrant=# \l
+                               List of databases
+   Name    |  Owner  | Encoding |  Collate   |   Ctype    |  Access privileges
+-----------+---------+----------+------------+------------+---------------------
+ postgres  | vagrant | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | vagrant | UTF8     | en_US.utf8 | en_US.utf8 | =c/vagrant         +
+           |         |          |            |            | vagrant=CTc/vagrant
+ template1 | vagrant | UTF8     | en_US.utf8 | en_US.utf8 | =c/vagrant         +
+           |         |          |            |            | vagrant=CTc/vagrant
+ test_db   | vagrant | UTF8     | en_US.utf8 | en_US.utf8 |
+ vagrant   | vagrant | UTF8     | en_US.utf8 | en_US.utf8 |
+(5 rows)
+```
 ---
 
 ### Как cдавать задание
