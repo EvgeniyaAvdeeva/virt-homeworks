@@ -205,13 +205,16 @@ width — средний размер одной строки в байтах.
 ## Задача 6
 
 Создайте бэкап БД test_db и поместите его в volume, предназначенный для бэкапов (см. Задачу 1).
-
+```shell
+vagrant@evgenika:~$ docker exec -i vagrant-netology pg_dump -U vagrant test_db -f /var/lib/postgresql/data/dump_test.sql
+```
+![img_7.png](img_7.png)
 Остановите контейнер с PostgreSQL (но не удаляйте volumes).
-
+![img_8.png](img_8.png)
 Поднимите новый пустой контейнер с PostgreSQL.
-
+![img_10.png](img_10.png)
 Восстановите БД test_db в новом контейнере.
-
+![img_11.png](img_11.png)
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
 
 ---
