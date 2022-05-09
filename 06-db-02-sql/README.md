@@ -122,8 +122,27 @@ GRANT
 |Ронни Джеймс Дио| Russia|
 |Ritchie Blackmore| Russia|
 
+```shell
+test_db=# insert into orders VALUES (1, 'Шоколад', 10), (2, 'Принтер', 3000), (3, 'Книга', 500), (4, 'Монитор', 7000), (5, 'Гитара', 4000);
+INSERT 0 5
+test_db=# insert into clients VALUES (1, 'Иванов Иван Иванович', 'USA'), (2, 'Петров Петр Петрович', 'Canada'), (3, 'Иоганн Себастьян Бах', 'Japan'), (4, 'Ронни Джеймс Дио', 'Russia'), (5, 'Ritchie Blackmore', 'Russia');
+INSERT 0 5
+```
 Используя SQL синтаксис:
 - вычислите количество записей для каждой таблицы 
+```shell
+test_db=# select count (*) from orders;
+ count
+-------
+     5
+(1 row)
+
+test_db=# select count (*) from clients;
+ count
+-------
+     5
+(1 row)
+```
 - приведите в ответе:
     - запросы 
     - результаты их выполнения.
