@@ -150,7 +150,6 @@ test_db=# select count (*) from clients;
 ## Задача 4
 
 Часть пользователей из таблицы clients решили оформить заказы из таблицы orders.
-
 Используя foreign keys свяжите записи из таблиц, согласно таблице:
 
 |ФИО|Заказ|
@@ -160,10 +159,26 @@ test_db=# select count (*) from clients;
 |Иоганн Себастьян Бах| Гитара |
 
 Приведите SQL-запросы для выполнения данных операций.
-
+```shell
+test_db=# update clients set booking = 3 where id = 1;
+UPDATE 1
+test_db=# update  clients set booking = 4 where id = 2;
+UPDATE 1
+test_db=# update  clients set booking = 5 where id = 3;
+UPDATE 1
+```
 Приведите SQL-запрос для выдачи всех пользователей, которые совершили заказ, а также вывод данного запроса.
+```shell
+test_db=# SELECT * FROM clients WHERE booking IS NOT NULL;
+ id |       lastname       | country | booking
+----+----------------------+---------+---------
+  1 | Иванов Иван Иванович | USA     |       3
+  2 | Петров Петр Петрович | Canada  |       4
+  3 | Иоганн Себастьян Бах | Japan   |       5
+(3 rows)
+```
  
-Подсказк - используйте директиву `UPDATE`.
+Подсказка - используйте директиву `UPDATE`. ❤️
 
 ## Задача 5
 
