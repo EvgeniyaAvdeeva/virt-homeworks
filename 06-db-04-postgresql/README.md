@@ -3,18 +3,50 @@
 ## Задача 1
 
 Используя docker поднимите инстанс PostgreSQL (версию 13). Данные БД сохраните в volume.
-
+```shell
+vagrant@evgenika:~$ docker run --rm --name pg-docker -e POSTGRES_PASSWORD=postgres -ti -p 5432:5432 -v vol_postgres:/var/lib/postgresql/data postgres:13.0
+```
 Подключитесь к БД PostgreSQL используя `psql`.
-
+```shell
+root@6c2c0700b52b:/# psql -h localhost -p 5432 -U postgres -W
+Password:
+psql (13.0 (Debian 13.0-1.pgdg100+1))
+Type "help" for help.
+```
 Воспользуйтесь командой `\?` для вывода подсказки по имеющимся в `psql` управляющим командам.
 
 **Найдите и приведите** управляющие команды для:
 - вывода списка БД
+```shell
+postgres=# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges
+-----------+----------+----------+------------+------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+(3 rows)
+```
 - подключения к БД
+```shell
+postgres=# \c
+Password for user postgres:
+You are now connected to database "postgres" as user "postgres".
+```
 - вывода списка таблиц
+```shell
+ \dt[S+] [PATTERN]      list tables
+```
 - вывода описания содержимого таблиц
+```shell
+ \d[S+]  NAME           describe table, view, sequence, or index
+```
 - выхода из psql
-
+```shell
+ \q                     quit psql
+```
 ## Задача 2
 
 Используя `psql` создайте БД `test_database`.
