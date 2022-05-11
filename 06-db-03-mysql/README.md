@@ -79,12 +79,39 @@ mysql> SELECT * FROM orders WHERE `price` > 300;
 - аттрибуты пользователя:
     - Фамилия "Pretty"
     - Имя "James"
+```shell
+mysql> CREATE USER 'test'@'localhost' IDENTIFIED BY 'test-pass';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> ALTER USER 'test'@'localhost' ATTRIBUTE '{"fname":"James", "lname":"Pretty"}';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> ALTER USER 'test'@'localhost'
+    -> IDENTIFIED BY 'test-pass'
+    -> WITH
+    -> MAX_QUERIES_PER_HOUR 100
+    -> PASSWORD EXPIRE INTERVAL 180 DAY
+    -> FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 2;
+Query OK, 0 rows affected (0.04 sec)
+```
 
 Предоставьте привелегии пользователю `test` на операции SELECT базы `test_db`.
-    
+```shell
+mysql> GRANT Select ON test_db.orders TO 'test'@'localhost';
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+```
+
 Используя таблицу INFORMATION_SCHEMA.USER_ATTRIBUTES получите данные по пользователю `test` и 
 **приведите в ответе к задаче**.
-
+```shell
+mysql> SELECT * FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER='test';
++------+-----------+---------------------------------------+
+| USER | HOST      | ATTRIBUTE                             |
++------+-----------+---------------------------------------+
+| test | localhost | {"fname": "James", "lname": "Pretty"} |
++------+-----------+---------------------------------------+
+1 row in set (0.00 sec)
+```
 ## Задача 3
 
 Установите профилирование `SET profiling = 1`.
