@@ -120,9 +120,21 @@ test_database=# SELECT MAX(avg_width) FROM pg_stats WHERE tablename='orders';
 провести разбиение таблицы на 2 (шардировать на orders_1 - price>499 и orders_2 - price<=499).
 
 Предложите SQL-транзакцию для проведения данной операции.
-
+Создать новую таблиц, разделить ее на секции. Перенести данные из старой таблицы в новые. 
+```shell
+test_database=# ALTER TABLE orders RENAME TO orders_1;
+ALTER TABLE
+test_database=# CREATE TABLE orders (id integer NOT NULL, title character varying(80) NOT NULL, price integer DEFAULT 0) partition by range(price);
+CREATE TABLE
+test_database=# CREATE TABLE orders_before_499 partition of orders for values from (0) to (499);
+CREATE TABLE
+test_database=# create table orders_more499 partition of orders for values from (499) to (999999999);
+CREATE TABLE
+test_database=# insert into orders (id, title, price) select * from orders_1;
+INSERT 0 8
+```
 Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
-
+- создать изначально секционированную таблицу.
 ## Задача 4
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
