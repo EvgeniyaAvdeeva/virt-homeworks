@@ -50,15 +50,58 @@ You are now connected to database "postgres" as user "postgres".
 ## Задача 2
 
 Используя `psql` создайте БД `test_database`.
-
+```shell
+postgres=# CREATE DATABASE test_database;
+CREATE DATABASE
+```
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/master/06-db-04-postgresql/test_data).
 
 Восстановите бэкап БД в `test_database`.
+```shell
+root@0d494bf494f1:/var/lib/postgresql# psql -U postgres -f test_dump_pg.sql test_database
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
 
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+ALTER TABLE
+COPY 8
+ setval
+--------
+      8
+(1 row)
+
+ALTER TABLE
+```
 Перейдите в управляющую консоль `psql` внутри контейнера.
-
+```shell
+postgres=# \c test_database
+Password for user postgres:
+You are now connected to database "test_database" as user "postgres".
+```
 Подключитесь к восстановленной БД и проведите операцию ANALYZE для сбора статистики по таблице.
-
+```shell
+test_database=# ANALYZE VERBOSE public.orders;
+INFO:  analyzing "public.orders"
+INFO:  "orders": scanned 1 of 1 pages, containing 8 live rows and 0 dead rows; 8 rows in sample, 8 estimated total rows
+ANALYZE
+```
 Используя таблицу [pg_stats](https://postgrespro.ru/docs/postgresql/12/view-pg-stats), найдите столбец таблицы `orders` 
 с наибольшим средним значением размера элементов в байтах.
 
