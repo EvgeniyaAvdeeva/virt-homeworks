@@ -138,9 +138,11 @@ INSERT 0 8
 ## Задача 4
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
-
+```shell
+root@0d494bf494f1:/var/lib/postgresql# pg_dump -U postgres -d test_database >test_database_dump.sql
+```
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
-
+- добавить индекс
 ---
 
 ### Как cдавать задание
