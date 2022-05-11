@@ -115,14 +115,62 @@ mysql> SELECT * FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER='test';
 ## Задача 3
 
 Установите профилирование `SET profiling = 1`.
+```shell
+mysql> SET profiling = 1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+```
 Изучите вывод профилирования команд `SHOW PROFILES;`.
+```shell
+mysql> show profiles;
++----------+------------+--------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                        |
++----------+------------+--------------------------------------------------------------+
+|        1 | 0.00107175 | show tables                                                  |
+|        2 | 0.00061125 | CREATE TABLE a1 (id int not null auto_increment)             |
+|        3 | 0.20534300 | CREATE TABLE a1 (id int not null auto_increment primary key) |
++----------+------------+--------------------------------------------------------------+
+3 rows in set, 1 warning (0.00 sec)
+```
 
 Исследуйте, какой `engine` используется в таблице БД `test_db` и **приведите в ответе**.
-
+```shell
+mysql> SELECT TABLE_NAME,ENGINE,ROW_FORMAT,TABLE_ROWS,DATA_LENGTH,INDEX_LENGTH FROM information_schema.TABLES WHERE table_name = 'orders' and  TABLE_SCHEMA = 'test_db' ORDER BY ENGINE asc;
++------------+--------+------------+------------+-------------+--------------+
+| TABLE_NAME | ENGINE | ROW_FORMAT | TABLE_ROWS | DATA_LENGTH | INDEX_LENGTH |
++------------+--------+------------+------------+-------------+--------------+
+| orders     | InnoDB | Dynamic    |          5 |       16384 |            0 |
++------------+--------+------------+------------+-------------+--------------+
+1 row in set (0.01 sec)
+```
 Измените `engine` и **приведите время выполнения и запрос на изменения из профайлера в ответе**:
 - на `MyISAM`
 - на `InnoDB`
+mysql> ALTER TABLE orders ENGINE = MyISAM;
+Query OK, 5 rows affected (0.24 sec)
+Records: 5  Duplicates: 0  Warnings: 0
 
+mysql> ALTER TABLE orders ENGINE = InnoDB;
+Query OK, 5 rows affected (0.29 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> show profiles;
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Query_ID | Duration   | Query
+                                    |
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|        1 | 0.00107175 | show tables
+                                    |
+|        2 | 0.00061125 | CREATE TABLE a1 (id int not null auto_increment)
+                                    |
+|        3 | 0.20534300 | CREATE TABLE a1 (id int not null auto_increment primary key)
+                                    |
+|        4 | 0.01335350 | SELECT TABLE_NAME,ENGINE,ROW_FORMAT,TABLE_ROWS,DATA_LENGTH,INDEX_LENGTH FROM information_schema.TABLES WHERE table_name = 'orders' and  TABLE_SCHEMA = 'test_db' ORDER BY ENGINE asc |
+|        5 | 0.24582000 | ALTER TABLE orders ENGINE = MyISAM
+                                    |
+|        6 | 0.29624075 | ALTER TABLE orders ENGINE = InnoDB
+                                    |
++----------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+6 rows in set, 1 warning (0.00 sec)
 ## Задача 4 
 
 Изучите файл `my.cnf` в директории /etc/mysql.
