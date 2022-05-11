@@ -164,7 +164,9 @@ mysql> show profiles;
                                     |
 |        3 | 0.20534300 | CREATE TABLE a1 (id int not null auto_increment primary key)
                                     |
-|        4 | 0.01335350 | SELECT TABLE_NAME,ENGINE,ROW_FORMAT,TABLE_ROWS,DATA_LENGTH,INDEX_LENGTH FROM information_schema.TABLES WHERE table_name = 'orders' and  TABLE_SCHEMA = 'test_db' ORDER BY ENGINE asc |
+|        4 | 0.01335350 | SELECT TABLE_NAME,ENGINE,ROW_FORMAT,TABLE_ROWS,DATA_LENGTH,INDEX_LENGTH 
+                         <FROM information_schema.TABLES WHERE table_name = 'orders'> 
+                         <and  TABLE_SCHEMA = 'test_db' ORDER BY ENGINE asc>                              |
 |        5 | 0.24582000 | ALTER TABLE orders ENGINE = MyISAM
                                     |
 |        6 | 0.29624075 | ALTER TABLE orders ENGINE = InnoDB
