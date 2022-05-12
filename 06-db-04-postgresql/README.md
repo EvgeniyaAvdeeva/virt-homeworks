@@ -142,7 +142,9 @@ INSERT 0 8
 root@0d494bf494f1:/var/lib/postgresql# pg_dump -U postgres -d test_database >test_database_dump.sql
 ```
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
-- первичный ключ ((primary key))
+
+Речь про UNIQUE?
+
 ---
 
 ### Как cдавать задание
