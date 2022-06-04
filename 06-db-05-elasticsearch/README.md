@@ -109,13 +109,57 @@ https://hub.docker.com/layers/227499751/eavdeeva/virthomeworks/v1.1/images/sha25
 | ind-3 | 2 | 4 |
 
 Получите список индексов и их статусов, используя API и **приведите в ответе** на задание.
-
+```shell
+[user_elastic@9e4b47fd6737 /]$ curl -X GET --insecure -u elastic "https://localhost:9200/_cat/indices?v=true"
+Enter host password for user 'elastic':
+health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   ind-1 hUGthGaOTRuPjdtwCrEnwQ   1   0          0            0       225b           225b
+yellow open   ind-3 q-4Hh1DqTwSOvDafqutHHw   4   2          0            0       900b           900b
+yellow open   ind-2 8fo9T50RRO699GRGicOV0A   2   1          0            0       450b           450b
+```
 Получите состояние кластера `elasticsearch`, используя API.
-
+```shell
+[user_elastic@9e4b47fd6737 /]$ curl -X GET --insecure -u elastic "https://localhost:9200/_cluster/health?pretty"
+Enter host password for user 'elastic':
+{
+  "cluster_name" : "elasticsearch",
+  "status" : "yellow",
+  "timed_out" : false,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
+  "active_primary_shards" : 9,
+  "active_shards" : 9,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 10,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 47.368421052631575
+}
+```
 Как вы думаете, почему часть индексов и кластер находится в состоянии yellow?
-
+У индексов 2, 3 указано количество реплик, а других серверов elasticsearch в кластере нет. 
+По этой же причине у всего кластера такой же статус.
 Удалите все индексы.
-
+```shell
+[user_elastic@9e4b47fd6737 /]$ curl -X DELETE --insecure -u elastic "https://localhost:9200/ind-1?pretty"
+Enter host password for user 'elastic':
+{
+  "acknowledged" : true
+}
+[user_elastic@9e4b47fd6737 /]$ curl -X DELETE --insecure -u elastic "https://localhost:9200/ind-2?pretty"
+Enter host password for user 'elastic':
+{
+  "acknowledged" : true
+}
+[user_elastic@9e4b47fd6737 /]$ curl -X DELETE --insecure -u elastic "https://localhost:9200/ind-3?pretty"
+Enter host password for user 'elastic':
+{
+  "acknowledged" : true
+}
+```
 **Важно**
 
 При проектировании кластера elasticsearch нужно корректно рассчитывать количество реплик и шард,
