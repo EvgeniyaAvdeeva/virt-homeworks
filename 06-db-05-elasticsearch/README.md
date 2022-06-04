@@ -20,9 +20,70 @@
 
 В ответе приведите:
 - текст Dockerfile манифеста
-- ссылку на образ в репозитории dockerhub
-- ответ `elasticsearch` на запрос пути `/` в json виде
+```shell
+FROM centos:centos7
 
+RUN yum update -y && yum install -y \
+    wget \
+    tar \
+    perl-Digest-SHA
+
+RUN useradd -s /bin/bash user_elastic && \
+    mkdir var/lib/elasticsearch && \
+    chown user_elastic /var/lib/elasticsearch
+
+USER user_elastic
+
+RUN cd /tmp && \
+    wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.3-linux-x86_64.tar.gz && \
+    wget -q https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.1.3-linux-x86_64.tar.gz.sha512 && \
+    shasum -a 512 -c elasticsearch-8.1.3-linux-x86_64.tar.gz.sha512
+
+RUN cd /tmp && \
+    tar -xzf elasticsearch-8.1.3-linux-x86_64.tar.gz && \
+    mkdir ~/elasticsearch && \
+    mv elasticsearch-8.1.3/* ~/elasticsearch
+
+RUN rm /tmp/elasticsearch-8.1.3-linux-x86_64.tar.gz \
+    /tmp/elasticsearch-8.1.3-linux-x86_64.tar.gz.sha512
+
+ENV ES_HOME /home/user_elastic/elasticsearch
+ENV ES_PATH_CONF $ES_HOME/config
+ENV PATH $PATH:$ES_HOME/bin
+
+RUN echo 'node.name: netology_test' >> $ES_PATH_CONF/elasticsearch.yml && \
+    echo 'path.data: /var/lib/elasticsearch' >> $ES_PATH_CONF/elasticsearch.yml
+
+#COPY elasticsearch.yml $ES_HOME/config
+
+EXPOSE 9200
+EXPOSE 9300
+
+CMD ["elasticsearch"] 
+```
+- ссылку на образ в репозитории dockerhub
+https://hub.docker.com/layers/227499751/eavdeeva/virthomeworks/v1.1/images/sha256-8a61e26fcfca8400df234301aba8e31f91974ab277f20ce573fd08ef477a6001?context=repo
+- ответ `elasticsearch` на запрос пути `/` в json виде
+```shell
+[user_elastic@9e4b47fd6737 /]$ curl -ku elastic:2KiO-hjwAH7v4mXEQhC* https://localhost:9200
+{
+  "name" : "netology_test",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "0JAMBHx1RX2lPf1yH_HeDA",
+  "version" : {
+    "number" : "8.1.3",
+    "build_flavor" : "default",
+    "build_type" : "tar",
+    "build_hash" : "39afaa3c0fe7db4869a161985e240bd7182d7a07",
+    "build_date" : "2022-04-19T08:13:25.444693396Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.0.0",
+    "minimum_wire_compatibility_version" : "7.17.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
 Подсказки:
 - возможно вам понадобится установка пакета perl-Digest-SHA для корректной работы пакета shasum
 - при сетевых проблемах внимательно изучите кластерные и сетевые настройки в elasticsearch.yml
