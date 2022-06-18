@@ -99,6 +99,7 @@ Your version of Terraform is out of date! The latest version
 is 1.2.3. You can update by downloading from https://www.terraform.io/downloads.html
 ```
 Использовала утилиту tfswitch
+
 ---
 
 ### Как cдавать задание
