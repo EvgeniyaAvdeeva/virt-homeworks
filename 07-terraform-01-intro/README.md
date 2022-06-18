@@ -66,6 +66,14 @@ Terraform, Ansible, Packer, Docker, Kubernetes
 Установите терраформ при помощи менеджера пакетов используемого в вашей операционной системе.
 В виде результата этой задачи приложите вывод команды `terraform --version`.
 
+```shell
+vagrant@evgenika:~$ terraform --version
+Terraform v1.1.6
+on linux_amd64
+
+Your version of Terraform is out of date! The latest version
+is 1.2.3. You can update by downloading from https://www.terraform.io/downloads.html
+```
 ## Задача 3. Поддержка легаси кода. 
 
 В какой-то момент вы обновили терраформ до новой версии, например с 0.12 до 0.13. 
