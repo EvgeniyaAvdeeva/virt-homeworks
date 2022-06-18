@@ -35,7 +35,35 @@ AWS предоставляет достаточно много бесплатн�
 3. Используйте раздел "Подготовьте облако к работе" для регистрации аккаунта. Далее раздел "Настройте провайдер" для подготовки
 базового терраформ конфига.
 4. Воспользуйтесь [инструкцией](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs) на сайте терраформа, что бы 
-не указывать авторизационный токен в коде, а терраформ провайдер брал его из переменных окружений.
+не указывать авторизационный токен в коде, а терраформ провайдер брал его из переменных окружений. 
+
+Прописала в файле variables.tf
+
+```shell
+vagrant@evgenika:~/teraform$ terraform init
+
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding latest version of yandex-cloud/yandex...
+- Installing yandex-cloud/yandex v0.75.0...
+- Installed yandex-cloud/yandex v0.75.0 (unauthenticated)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+```
 
 ## Задача 2. Создание aws ec2 или yandex_compute_instance через терраформ. 
 
