@@ -84,6 +84,21 @@ is 1.2.3. You can update by downloading from https://www.terraform.io/downloads.
 В виде результата этой задачи приложите вывод `--version` двух версий терраформа доступных на вашем компьютере 
 или виртуальной машине.
 
+```shell
+vagrant@evgenika:~/bin$ ./terraform --version
+Terraform v0.15.1
+on linux_amd64
+
+Your version of Terraform is out of date! The latest version
+is 1.2.3. You can update by downloading from https://www.terraform.io/downloads.html
+vagrant@evgenika:~$ terraform --version
+Terraform v1.1.6
+on linux_amd64
+
+Your version of Terraform is out of date! The latest version
+is 1.2.3. You can update by downloading from https://www.terraform.io/downloads.html
+```
+Использовала утилиту tfswitch
 ---
 
 ### Как cдавать задание
