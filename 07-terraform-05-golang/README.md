@@ -19,28 +19,66 @@
 1. Напишите программу для перевода метров в футы (1 фут = 0.3048 метр). Можно запросить исходные данные 
 у пользователя, а можно статически задать в коде.
     Для взаимодействия с пользователем можно использовать функцию `Scanf`:
-    ```
-    package main
-    
-    import "fmt"
-    
-    func main() {
-        fmt.Print("Enter a number: ")
-        var input float64
-        fmt.Scanf("%f", &input)
-    
-        output := input * 2
-    
-        fmt.Println(output)    
-    }
-    ```
+
+```shell
+vagrant@evgenika:~/helloworld$ cat main.go
+package main
+
+import "fmt"
+
+import "math"
+
+func main() {
+  println("Enter value in foot")
+  var input float64
+
+  fmt.Scanf("%f", &input)
+  output := input * float64(0.3048)
+  rOutput := math.Round(output)
+  sOutput := fmt.Sprintf("( %.2f)", output)
+  fmt.Println("Value in Meters:", rOutput, sOutput )
+  }
+  ```
  
-1. Напишите программу, которая найдет наименьший элемент в любом заданном списке, например:
+2. Напишите программу, которая найдет наименьший элемент в любом заданном списке, например:
     ```
     x := []int{48,96,86,68,57,82,63,70,37,34,83,27,19,97,9,17,}
     ```
-1. Напишите программу, которая выводит числа от 1 до 100, которые делятся на 3. То есть `(3, 6, 9, …)`.
+````shell
+vagrant@evgenika:~/helloworld$ cat main.go
+package main
 
+import "fmt"
+
+
+func main() {
+    values := []int{48,96,86,68,57,82,63,70,37,34,83,27,19,97,9,17}
+
+min := values[0]
+for _, v := range values {
+        if (v < min) {
+            min = v
+        }
+}
+
+fmt.Println(min)        }
+````
+3. Напишите программу, которая выводит числа от 1 до 100, которые делятся на 3. То есть `(3, 6, 9, …)`.
+```shell
+vagrant@evgenika:~/helloworld$ cat main.go
+package main
+
+import "fmt"
+
+
+func main() {
+        for i := 1; i <= 100; i++ {
+                if (i%3) == 0 {
+                        fmt.Println(i)
+}
+   }
+      }
+```
 В виде решения ссылку на код или сам код. 
 
 ## Задача 4. Протестировать код (не обязательно).
